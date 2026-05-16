@@ -1,0 +1,3 @@
+.attendance-bar-width {
+  width: var(--attendance-bar-width, 0%);
+}

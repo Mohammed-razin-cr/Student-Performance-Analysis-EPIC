@@ -1,0 +1,11 @@
+Flask==3.0.3
+flask-cors==4.0.0
+scikit-learn==1.5.2
+numpy==2.1.2
+pandas==2.2.3
+python-dotenv==1.0.0
+joblib==1.4.2
+Werkzeug==3.0.3
+pymongo==4.7.0
+streamlit==1.34.0
+twilio==9.0.4

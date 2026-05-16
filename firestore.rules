@@ -1,0 +1,275 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
+    // Check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Check if user owns the document
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Check if user is faculty/instructor
+    function isFaculty() {
+      return request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'faculty';
+    }
+    
+    // Check if user is student
+    function isStudent() {
+      return request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'student';
+    }
+    
+    // ============================================
+    // USERS COLLECTION
+    // ============================================
+    match /users/{userId} {
+      // Authenticated users can read any user profile
+      allow read: if isAuthenticated();
+      
+      // Users can only create their own profile
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Users can update their own profile, admins can update any
+      allow update: if isOwner(userId) || isAdmin();
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+      
+      // ============================================
+      // FRIENDS SUBCOLLECTION
+      // ============================================
+      match /friends/{friendId} {
+        allow read: if isAuthenticated();
+        allow create, update: if isAuthenticated() && request.auth.uid == userId;
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+      }
+    }
+    
+    // ============================================
+    // FRIEND REQUESTS COLLECTION
+    // ============================================
+    match /friendRequests/{requestId} {
+      allow read: if isAuthenticated();
+      
+      // Users can create friend requests from themselves
+      allow create: if isAuthenticated() && request.resource.data.senderId == request.auth.uid;
+      
+      // Sender and receiver can update
+      allow update: if isAuthenticated() && (
+        resource.data.senderId == request.auth.uid || 
+        resource.data.receiverId == request.auth.uid
+      );
+      
+      // Sender and receiver can delete
+      allow delete: if isAuthenticated() && (
+        resource.data.senderId == request.auth.uid || 
+        resource.data.receiverId == request.auth.uid
+      );
+    }
+    
+    // ============================================
+    // STUDENT PROFILES COLLECTION
+    // ============================================
+    match /studentProfiles/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // ============================================
+    // PREDICTIONS COLLECTION
+    // ============================================
+    match /predictions/{predictionId} {
+      // Students can read their own, admins can read all
+      allow read: if isAuthenticated() && 
+        (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // Students can create their own predictions
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      
+      // Students can update their own, admins can update any
+      allow update: if isAuthenticated() && 
+        (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // Students can delete their own, admins can delete any
+      allow delete: if isAuthenticated() && 
+        (resource.data.userId == request.auth.uid || isAdmin());
+    }
+    
+    // ============================================
+    // ANALYTICS COLLECTION
+    // ============================================
+    match /analytics/{userId} {
+      // Students can read their own, admins can read all
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Students can create their own analytics
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Students can update their own, admins can update any
+      allow update: if isOwner(userId) || isAdmin();
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // STUDENT MARKS COLLECTION
+    // ============================================
+    // Admin full access to manage marks
+    // Students can read their own marks only
+    match /studentMarks/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // STUDENT ACTIVITY MARKS COLLECTION
+    // ============================================
+    // Admin full access to manage activity marks
+    // Students can read their own activity marks only
+    match /studentActivityMarks/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // USER SETTINGS COLLECTION
+    // ============================================
+    match /settings/{userId} {
+      // Users can read their own settings
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Users can create their own settings
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Users can update their own settings
+      allow update: if isOwner(userId) || isAdmin();
+      
+      // Users can delete their own settings
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // ============================================
+    // ADMINS COLLECTION
+    // ============================================
+    match /admins/{adminId} {
+      // All authenticated users can read admin list
+      allow read: if isAuthenticated();
+      
+      // Only admins can manage admin collection
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // ============================================
+    // NOTIFICATIONS COLLECTION
+    // ============================================
+    match /notifications/{notificationId} {
+      // Users can read their own notifications
+      allow read: if isAuthenticated() && 
+        resource.data.userId == request.auth.uid;
+      
+      // Only admins can create notifications
+      allow create: if isAdmin();
+      
+      // Users can update their own notifications (mark as read)
+      allow update: if isAuthenticated() && 
+        resource.data.userId == request.auth.uid;
+      
+      // Only admins can delete notifications
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // ASSIGNMENTS COLLECTION
+    // ============================================
+    match /assignments/{assignmentId} {
+      // Authenticated users can read assignments
+      allow read: if isAuthenticated();
+      
+      // Only faculty/admins can create assignments
+      allow create: if isFaculty() || isAdmin();
+      
+      // Only faculty/admins who created it can update
+      allow update: if (isFaculty() || isAdmin());
+      
+      // Only faculty/admins can delete
+      allow delete: if isFaculty() || isAdmin();
+    }
+    
+    // ============================================
+    // SUBMISSIONS COLLECTION
+    // ============================================
+    match /submissions/{submissionId} {
+      // Students can read their own submissions, admins can read all
+      allow read: if isAuthenticated() && 
+        (resource.data.userId == request.auth.uid || isAdmin() || isFaculty());
+      
+      // Students can create their own submissions
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      
+      // Faculty/admins can update (grade submissions)
+      allow update: if isFaculty() || isAdmin();
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // COURSES COLLECTION
+    // ============================================
+    match /courses/{courseId} {
+      // Authenticated users can read courses
+      allow read: if isAuthenticated();
+      
+      // Only faculty/admins can create courses
+      allow create: if isFaculty() || isAdmin();
+      
+      // Only faculty/admins can update courses
+      allow update: if isFaculty() || isAdmin();
+      
+      // Only admins can delete courses
+      allow delete: if isAdmin();
+    }
+    // ============================================
+    // NOTES COLLECTION
+    // ============================================
+    match /notes/{noteId} {
+      // All authenticated users (students) can read notes
+      allow read: if isAuthenticated();
+      
+      // Only admins can upload new notes
+      allow create: if isAdmin();
+      
+      // Any authenticated user can increment download count; admins can update anything
+      allow update: if isAuthenticated();
+      
+      // Only admins can delete notes
+      allow delete: if isAdmin();
+    }
+  }
+}
+

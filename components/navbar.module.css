@@ -1,0 +1,10 @@
+.navbar {
+  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.45), 0 1.5px 8px 0 rgba(20, 184, 166, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255,255,255,0.15);
+}
+
+.navbar-logo {
+  font-family: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+  letter-spacing: -0.025em;
+}

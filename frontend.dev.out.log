@@ -1,0 +1,88 @@
+
+> epic-student-performance-analysis@1.0.0 dev
+> next dev
+
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.1.3:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3.5s
+ ○ Compiling / ...
+ GET / 200 in 6.4s (compile: 6.0s, render: 412ms)
+ GET /login 200 in 859ms (compile: 834ms, render: 25ms)
+ GET /dashboard 200 in 2.8s (compile: 2.7s, render: 24ms)
+   Reload env: .env.local
+ GET /dashboard 200 in 98ms (compile: 63ms, render: 35ms)
+ GET /dashboard 200 in 1234ms (compile: 589ms, render: 645ms)
+ GET /dashboard 200 in 845ms (compile: 221ms, render: 624ms)
+ GET /dashboard/career-ai 200 in 1421ms (compile: 1397ms, render: 24ms)
+ ✓ Compiled in 187ms
+ GET /dashboard/career-ai 200 in 687ms (compile: 89ms, render: 599ms)
+ POST /api/study-planner 200 in 424ms (compile: 413ms, render: 11ms)
+ GET /api/career/jobs?query=developer&location=India 200 in 7.6s (compile: 359ms, render: 7.3s)
+ GET /dashboard/study-planner 200 in 675ms (compile: 586ms, render: 90ms)
+ POST /api/study-planner 200 in 15ms (compile: 8ms, render: 7ms)
+ POST /api/career/resume-analysis 429 in 397ms (compile: 170ms, render: 226ms)
+ GET /dashboard/study-planner 200 in 28ms (compile: 4ms, render: 24ms)
+ ✓ Compiled in 162ms
+ GET /dashboard/student-input 200 in 665ms (compile: 643ms, render: 22ms)
+ GET / 200 in 82ms (compile: 27ms, render: 55ms)
+ GET /dashboard 200 in 71ms (compile: 9ms, render: 61ms)
+ GET /dashboard/study-planner-ai 404 in 602ms (compile: 471ms, render: 131ms)
+ GET /admin/timetable 404 in 538ms (compile: 417ms, render: 122ms)
+ GET /dashboard/timetable 404 in 563ms (compile: 484ms, render: 79ms)
+ GET / 200 in 36ms (compile: 5ms, render: 31ms)
+ GET /dashboard 200 in 57ms (compile: 4ms, render: 53ms)
+ GET /dashboard/study-planner-ai 404 in 72ms (compile: 14ms, render: 58ms)
+ GET /dashboard/timetable 404 in 74ms (compile: 25ms, render: 49ms)
+ GET /admin/timetable 404 in 44ms (compile: 13ms, render: 31ms)
+ GET / 200 in 37ms (compile: 4ms, render: 33ms)
+ GET /dashboard 200 in 24ms (compile: 4ms, render: 20ms)
+ GET /dashboard/study-planner 200 in 23ms (compile: 5ms, render: 18ms)
+ GET /dashboard/student-input 200 in 17ms (compile: 4ms, render: 14ms)
+ GET /dashboard/career-ai 200 in 156ms (compile: 130ms, render: 27ms)
+ GET /api/career/jobs?query=software+developer&location=India 200 in 6.2s (compile: 1726µs, render: 6.2s)
+ ✓ Compiled in 557ms
+ GET /dashboard/career-ai 200 in 516ms (compile: 5ms, render: 511ms)
+ ✓ Compiled in 135ms
+ GET /api/career/jobs? 200 in 22.4s (compile: 64ms, render: 22.3s)
+ GET /api/career/jobs 200 in 38.6s (compile: 3ms, render: 38.6s)
+ GET /dashboard/career-ai 200 in 541ms (compile: 113ms, render: 427ms)
+ GET /api/career/jobs? 200 in 13.1s (compile: 3ms, render: 13.1s)
+ GET /dashboard/career-ai 200 in 71ms (compile: 3ms, render: 68ms)
+ GET /api/career/jobs? 200 in 10.7s (compile: 3ms, render: 10.6s)
+ GET /dashboard/career-ai 200 in 67ms (compile: 3ms, render: 63ms)
+ GET / 200 in 50ms (compile: 4ms, render: 46ms)
+ GET /dashboard 200 in 59ms (compile: 3ms, render: 56ms)
+ GET / 200 in 31ms (compile: 3ms, render: 28ms)
+ GET /dashboard 200 in 115ms (compile: 3ms, render: 112ms)
+ GET /dashboard/career-ai 200 in 137ms (compile: 45ms, render: 92ms)
+ GET / 200 in 38ms (compile: 3ms, render: 34ms)
+ GET /dashboard 200 in 19ms (compile: 3ms, render: 16ms)
+ GET /dashboard/career-ai 200 in 18ms (compile: 3ms, render: 15ms)
+ GET /api/career/jobs? 200 in 952ms (compile: 1865µs, render: 950ms)
+ GET /api/career/jobs? 200 in 795ms (compile: 1712µs, render: 793ms)
+ POST /api/career/resume-analysis 429 in 299ms (compile: 51ms, render: 248ms)
+   Reload env: .env.local
+ GET /dashboard/career-ai 200 in 114ms (compile: 79ms, render: 35ms)
+ POST /api/career/resume-analysis 429 in 260ms (compile: 44ms, render: 216ms)
+ POST /api/career/resume-analysis 429 in 283ms (compile: 2ms, render: 281ms)
+   Reload env: .env.local
+ GET /dashboard/career-ai 200 in 143ms (compile: 113ms, render: 30ms)
+ POST /api/career/resume-analysis 429 in 1758ms (compile: 38ms, render: 1720ms)
+ POST /api/career/resume-analysis 429 in 1316ms (compile: 2ms, render: 1314ms)
+   Reload env: .env.local
+ GET /dashboard/career-ai 200 in 142ms (compile: 111ms, render: 30ms)
+ POST /api/career/resume-analysis 429 in 1786ms (compile: 41ms, render: 1744ms)
+   Reload env: .env.local
+ GET /dashboard/career-ai 200 in 133ms (compile: 89ms, render: 43ms)
+ POST /api/career/resume-analysis 200 in 652ms (compile: 54ms, render: 598ms)
+ POST /api/chat 500 in 2.8s (compile: 1003ms, render: 1770ms)
+ POST /api/career/resume-analysis 200 in 638ms (compile: 2ms, render: 636ms)
+   Reload env: .env.local
+ GET /dashboard/career-ai 200 in 118ms (compile: 80ms, render: 38ms)
+ POST /api/career/resume-analysis 200 in 599ms (compile: 62ms, render: 537ms)
+ POST /api/chat 200 in 963ms (compile: 84ms, render: 878ms)
+[?25h

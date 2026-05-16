@@ -1,0 +1,442 @@
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+Warning: Please use the `legacy` build in Node.js environments.
+D:\epic\.next\dev\server\chunks\ssr\node_modules_19a3d492._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+D:\epic\.next\dev\server\chunks\ssr\_e4ac70d2._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+D:\epic\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+ ⨯ ReferenceError: DOMMatrix is not defined
+    at instantiateModule (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:228:20)
+    at module evaluation (D:\epic\.next\dev\server\chunks\ssr\_e4ac70d2._.js:18:172)
+    at instantiateModule (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:228:20)
+    at module evaluation (D:\epic\.next\dev\server\chunks\ssr\_e4ac70d2._.js:385:142)
+    at instantiateModule (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:738:12)
+    at Context.commonJsRequire [as r] (D:\epic\.next\dev\server\chunks\ssr\[turbopack]_runtime.js:249:12) {
+  digest: '1567532270'
+}
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:15:34
+Module not found: Can't resolve 'pdfjs-dist/build/pdf.worker.entry'
+[0m [90m 13 |[39m       [90m// Common entry path for pdfjs worker bundlers[39m
+ [90m 14 |[39m       [90m// @ts-ignore - dynamic import may not have types[39m
+[31m[1m>[22m[39m[90m 15 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 16 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 17 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 18 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⚠ ./lib/pdfParser.ts:28:34
+Module not found: Can't resolve 'pdfjs-dist/legacy/build/pdf.worker.entry'
+[0m [90m 26 |[39m       [90m// Try legacy path used by some pdfjs versions/builds[39m
+ [90m 27 |[39m       [90m// @ts-ignore[39m
+[31m[1m>[22m[39m[90m 28 |[39m       [36mconst[39m workerModule [33m=[39m [36mawait[39m [36mimport[39m([32m'pdfjs-dist/legacy/build/pdf.worker.entry'[39m)[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 29 |[39m       [36mconst[39m workerSrc [33m=[39m workerModule[33m?[39m[33m.[39m[36mdefault[39m [33m||[39m workerModule[33m;[39m
+ [90m 30 |[39m       [36mif[39m ([36mtypeof[39m workerSrc [33m===[39m [32m'string'[39m) {
+ [90m 31 |[39m         pdfjsLib[33m.[39m[33mGlobalWorkerOptions[39m[33m.[39mworkerSrc [33m=[39m workerSrc[33m;[39m[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/pdfParser.ts [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Client Component Browser]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/pdfParser.ts [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Client Component SSR]
+    ./app/dashboard/career-ai/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+chat: groq failed - The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.
+chat: gemini failed - API Key not found. Please pass a valid API key.
+chat: openrouter failed - No endpoints found for meta-llama/llama-3.1-70b-instruct:free.
+chat: cerebras failed - Not Found
+chat: together failed - Not Found
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
