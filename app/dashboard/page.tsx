@@ -362,11 +362,16 @@ export default function DashboardPage() {
 
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-3 pt-4">
-              <Button variant="outline" className="font-bold">
-                <MessageSquare className="h-4 w-4 mr-2" />
-                Mentor Chat
-              </Button>
-              <Button className="font-bold">
+              <Link href="/dashboard/study-planner">
+                <Button variant="outline" className="font-bold w-full">
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Mentor Chat
+                </Button>
+              </Link>
+              <Button
+                className="font-bold"
+                onClick={() => window.open("https://meet.google.com/new", "_blank")}
+              >
                 <Video className="h-4 w-4 mr-2" />
                 Join Session
               </Button>
