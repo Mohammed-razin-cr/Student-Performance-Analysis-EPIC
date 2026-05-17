@@ -362,7 +362,7 @@ export default function DashboardPage() {
 
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-3 pt-4">
-              <Link href="/dashboard/study-planner">
+              <Link href="/dashboard/mentor-chat">
                 <Button variant="outline" className="font-bold w-full">
                   <MessageSquare className="h-4 w-4 mr-2" />
                   Mentor Chat
