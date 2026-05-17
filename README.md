@@ -13,7 +13,7 @@
 
 **An intelligent student performance prediction system powered by Machine Learning**
 
-[Live Demo](#) • [Report Bug](https://github.com/Mohammed-razin-cr/epic/issues) • [Request Feature](https://github.com/Mohammed-razin-cr/epic/issues)
+[Live Demo](https://student-performance-analysis-epic.up.railway.app) • [Report Bug](https://github.com/Mohammed-razin-cr/epic/issues) • [Request Feature](https://github.com/Mohammed-razin-cr/epic/issues)
 
 </div>
 
