@@ -26,6 +26,7 @@ export interface User {
   employeeId?: string;
   school: string;
   department: string;
+  classId?: string;        // Timetable class key (e.g., MCA-III)
   semester?: string;      // Current semester (1-8)
   age?: number;
   phone?: string;
@@ -34,6 +35,41 @@ export interface User {
   photoURL?: string;
   skills?: string[];
   interests?: string[];
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// ============================================
+// TIMETABLE TYPES
+// ============================================
+
+export type TimetableDay =
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday';
+
+export interface TimetableSession {
+  day: TimetableDay;
+  startTime: string;       // HH:mm
+  endTime: string;         // HH:mm
+  subjectCode: string;
+  subjectName: string;
+  faculty: string;
+  room?: string;
+  isLab?: boolean;
+}
+
+export interface Timetable {
+  id: string;
+  classId: string;
+  className: string;
+  department: string;
+  semester: string;
+  classTeacher?: string;
+  sessions: TimetableSession[];
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }

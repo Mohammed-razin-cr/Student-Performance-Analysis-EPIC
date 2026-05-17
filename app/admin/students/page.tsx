@@ -69,6 +69,8 @@ export default function AllStudentsPage() {
     email: "",
     studentId: "",
     department: "",
+    semester: "",
+    classId: "",
     school: "East Point College of Higher Education",
     phone: "",
     age: "",
@@ -161,6 +163,8 @@ export default function AllStudentsPage() {
       name: student.name,
       studentId: student.studentId,
       department: student.department,
+      semester: student.semester,
+      classId: student.classId,
       school: student.school,
       phone: student.phone,
     })
@@ -185,6 +189,8 @@ export default function AllStudentsPage() {
         role: 'student' as const,
         studentId: newStudentForm.studentId || `EP${Date.now().toString().slice(-8)}`,
         department: newStudentForm.department,
+        semester: newStudentForm.semester,
+        classId: newStudentForm.classId,
         school: newStudentForm.school,
         phone: newStudentForm.phone,
         age: newStudentForm.age ? parseInt(newStudentForm.age) : undefined,
@@ -207,6 +213,8 @@ export default function AllStudentsPage() {
         email: "",
         studentId: "",
         department: "",
+        semester: "",
+        classId: "",
         school: "East Point College of Higher Education",
         phone: "",
         age: "",
@@ -558,6 +566,22 @@ export default function AllStudentsPage() {
               </Select>
             </div>
             <div className="space-y-2">
+              <Label>Semester</Label>
+              <Input
+                value={editForm.semester || ""}
+                onChange={(e) => setEditForm(prev => ({ ...prev, semester: e.target.value }))}
+                placeholder="e.g., Sem-3"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Class ID</Label>
+              <Input
+                value={editForm.classId || ""}
+                onChange={(e) => setEditForm(prev => ({ ...prev, classId: e.target.value }))}
+                placeholder="e.g., MCA-III"
+              />
+            </div>
+            <div className="space-y-2">
               <Label>School/College</Label>
               <Input
                 value={editForm.school || ""}
@@ -643,6 +667,22 @@ export default function AllStudentsPage() {
                     <SelectItem value="MBA">MBA</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Semester</Label>
+                <Input
+                  value={newStudentForm.semester}
+                  onChange={(e) => setNewStudentForm(prev => ({ ...prev, semester: e.target.value }))}
+                  placeholder="e.g., Sem-3"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Class ID</Label>
+                <Input
+                  value={newStudentForm.classId}
+                  onChange={(e) => setNewStudentForm(prev => ({ ...prev, classId: e.target.value }))}
+                  placeholder="e.g., MCA-III"
+                />
               </div>
               <div className="space-y-2 col-span-2">
                 <Label>School/College</Label>

@@ -1,35 +1,34 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Trophy, Award, Target, Users, BookOpen, TrendingUp } from "lucide-react"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ArrowLeft, Award, BookOpen, Sparkles, Target, Trophy, TrendingUp, Users } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/contexts/AuthContext"
-import { getStudentMarks, getStudentProfile, getFriendsList } from "@/lib/firestore"
-import { calculateUserBadges, getBadgeProgress } from "@/lib/badges"
+import { getFriendsList, getStudentMarks, getStudentProfile } from "@/lib/firestore"
+import { calculateUserBadges } from "@/lib/badges"
 import { BADGE_DEFINITIONS } from "@/types/badges"
 import type { Badge as BadgeType, BadgeDefinition } from "@/types/badges"
-import type { StudentMarks, StudentProfile, Friend } from "@/types/firestore"
 
 type BadgeWithEarned = BadgeDefinition & {
-  earnedLevel: BadgeType['level'] | null
+  earnedLevel: BadgeType["level"] | null
   earned: boolean
 }
 
 const LEVEL_COLORS = {
-  bronze: 'from-orange-700 to-orange-500',
-  silver: 'from-gray-400 to-gray-300',
-  gold: 'from-yellow-500 to-yellow-300',
+  bronze: "from-orange-700 to-orange-400",
+  silver: "from-slate-400 to-white",
+  gold: "from-yellow-500 to-amber-200",
 }
 
 const LEVEL_TEXT_COLORS = {
-  bronze: 'text-orange-400',
-  silver: 'text-gray-300',
-  gold: 'text-yellow-400',
+  bronze: "text-orange-300",
+  silver: "text-slate-200",
+  gold: "text-yellow-300",
 }
 
 const CATEGORY_ICONS = {
@@ -45,207 +44,149 @@ export default function AchievementsPage() {
   const [badges, setBadges] = useState<BadgeType[]>([])
   const [allBadges, setAllBadges] = useState<BadgeWithEarned[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedCategory, setSelectedCategory] = useState("all")
 
   useEffect(() => {
     const fetchBadges = async () => {
       if (!user) return
-
       try {
         const [marks, profile, friends] = await Promise.all([
           getStudentMarks(user.uid),
           getStudentProfile(user.uid),
           getFriendsList(user.uid),
         ])
-
         const earnedBadges = await calculateUserBadges(user.uid, marks, friends, profile)
         setBadges(earnedBadges)
-
-        // Create all possible badges with earned status
-        const all = BADGE_DEFINITIONS.map(def => {
+        setAllBadges(BADGE_DEFINITIONS.map(def => {
           const earned = earnedBadges.find(b => b.id.startsWith(def.id))
-          return {
-            ...def,
-            earnedLevel: earned?.level || null,
-            earned: !!earned,
-          }
-        })
-        setAllBadges(all)
-      } catch (err) {
-        console.error("Error fetching badges:", err)
+          return { ...def, earnedLevel: earned?.level || null, earned: !!earned }
+        }))
       } finally {
         setIsLoading(false)
       }
     }
-
     fetchBadges()
   }, [user])
 
-  const filteredBadges = selectedCategory === 'all' 
-    ? allBadges 
-    : allBadges.filter(b => b.category === selectedCategory)
+  const filteredBadges = selectedCategory === "all"
+    ? allBadges
+    : allBadges.filter(badge => badge.category === selectedCategory)
 
   const earnedCount = badges.length
-  const goldCount = badges.filter(b => b.level === 'gold').length
-  const silverCount = badges.filter(b => b.level === 'silver').length
-  const bronzeCount = badges.filter(b => b.level === 'bronze').length
+  const goldCount = badges.filter(badge => badge.level === "gold").length
+  const silverCount = badges.filter(badge => badge.level === "silver").length
+  const bronzeCount = badges.filter(badge => badge.level === "bronze").length
+  const completion = allBadges.length ? Math.round((earnedCount / allBadges.length) * 100) : 0
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    )
+    return <div className="flex min-h-[60vh] items-center justify-center"><div className="h-12 w-12 animate-spin rounded-full border-b-2 border-primary" /></div>
   }
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
+      <motion.section
+        initial={{ opacity: 0, y: -18 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row items-center sm:items-center gap-4"
+        className="relative overflow-hidden rounded-3xl border border-fuchsia-400/15 bg-slate-950 p-6 shadow-2xl shadow-fuchsia-950/20"
       >
-        <Link href="/dashboard">
-          <button className="p-2 hover:bg-slate-800 rounded-lg transition-colors" title="Go back to dashboard">
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-        </Link>
-        <div className="flex-1 text-center sm:text-left">
-          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Achievements
-          </h1>
-          <p className="text-sm sm:text-base text-muted-foreground">Track your badges and accomplishments</p>
+        <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-fuchsia-400/15 blur-3xl" />
+        <div className="absolute -bottom-20 left-24 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <Link href="/dashboard" className="mb-4 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-white">
+              <ArrowLeft className="h-4 w-4" />
+              Back to dashboard
+            </Link>
+            <Badge className="mb-3 border-fuchsia-300/20 bg-fuchsia-300/10 text-fuchsia-100 hover:bg-fuchsia-300/10">Achievement constellation</Badge>
+            <h1 className="bg-gradient-to-r from-white via-fuchsia-100 to-cyan-200 bg-clip-text text-3xl font-black text-transparent sm:text-4xl">
+              Achievements
+            </h1>
+            <p className="mt-2 max-w-xl text-sm text-slate-300">
+              Every badge is a signal of momentum. Track what you have earned, and what the next frontier asks of you.
+            </p>
+          </div>
+          <div className="min-w-[260px] rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+            <div className="flex items-end justify-between">
+              <div>
+                <p className="text-sm text-slate-400">Collection progress</p>
+                <p className="text-3xl font-bold text-white">{completion}%</p>
+              </div>
+              <Sparkles className="h-6 w-6 text-fuchsia-200" />
+            </div>
+            <Progress value={completion} className="mt-4 h-2" />
+          </div>
         </div>
-      </motion.div>
+      </motion.section>
 
-      {/* Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <Card className="border-0 shadow-lg bg-card dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className="p-3 rounded-full bg-primary/20">
-                <Trophy className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-foreground dark:text-white">{earnedCount}</p>
-                <p className="text-sm text-muted-foreground">Total Badges</p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <Card className="border-0 shadow-lg bg-card dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className={`p-3 rounded-full bg-gradient-to-br ${LEVEL_COLORS.gold}`}>
-                <Award className="h-6 w-6 text-slate-900" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{goldCount}</p>
-                <p className="text-sm text-muted-foreground">Gold Badges</p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <Card className="border-0 shadow-lg bg-card dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className={`p-3 rounded-full bg-gradient-to-br ${LEVEL_COLORS.silver}`}>
-                <Award className="h-6 w-6 text-slate-900" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-gray-600 dark:text-gray-300">{silverCount}</p>
-                <p className="text-sm text-muted-foreground">Silver Badges</p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <Card className="border-0 shadow-lg bg-card dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className={`p-3 rounded-full bg-gradient-to-br ${LEVEL_COLORS.bronze}`}>
-                <Award className="h-6 w-6 text-slate-900" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{bronzeCount}</p>
-                <p className="text-sm text-muted-foreground">Bronze Badges</p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {[
+          { label: "Total badges", value: earnedCount, icon: Trophy, tone: "text-cyan-200" },
+          { label: "Gold", value: goldCount, icon: Award, tone: "text-yellow-300" },
+          { label: "Silver", value: silverCount, icon: Award, tone: "text-slate-200" },
+          { label: "Bronze", value: bronzeCount, icon: Award, tone: "text-orange-300" },
+        ].map((item, index) => (
+          <motion.div key={item.label} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
+            <Card className="border-white/10 bg-slate-950/70 backdrop-blur">
+              <CardContent className="flex items-center gap-4 p-5">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <item.icon className={`h-6 w-6 ${item.tone}`} />
+                </div>
+                <div>
+                  <p className={`text-2xl font-bold ${item.tone}`}>{item.value}</p>
+                  <p className="text-sm text-muted-foreground">{item.label}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Filter Tabs */}
-      <Tabs defaultValue="all" onValueChange={setSelectedCategory} className="w-full">
-        <TabsList className="bg-muted dark:bg-slate-800 w-full justify-start overflow-x-auto no-scrollbar flex-nowrap h-auto p-1">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="academic">Academic</TabsTrigger>
-          <TabsTrigger value="social">Social</TabsTrigger>
-          <TabsTrigger value="attendance">Attendance</TabsTrigger>
-          <TabsTrigger value="prediction">Prediction</TabsTrigger>
-          <TabsTrigger value="elite">Elite</TabsTrigger>
+      <Tabs defaultValue="all" onValueChange={setSelectedCategory}>
+        <TabsList className="h-auto w-full justify-start overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/70 p-1 backdrop-blur">
+          {["all", "academic", "social", "attendance", "prediction", "elite"].map(value => (
+            <TabsTrigger key={value} value={value} className="capitalize">{value}</TabsTrigger>
+          ))}
         </TabsList>
       </Tabs>
 
-      {/* Badges Grid */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {filteredBadges.map((badge, index) => {
           const Icon = CATEGORY_ICONS[badge.category]
           const earnedLevel = badge.earnedLevel
-
           return (
-            <motion.div
-              key={badge.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <Card className={`border-0 shadow-lg ${badge.earned ? 'bg-card dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800' : 'bg-muted/50 dark:bg-slate-900/50 opacity-60'}`}>
+            <motion.div key={badge.id} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}>
+              <Card className={`group h-full overflow-hidden border-white/10 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 ${
+                badge.earned ? "bg-slate-950/70" : "bg-slate-950/40 opacity-70"
+              }`}>
                 <CardHeader>
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className={`text-4xl ${badge.earned ? '' : 'grayscale opacity-40'}`}>
+                      <div className={`text-4xl transition duration-300 group-hover:scale-110 ${badge.earned ? "" : "grayscale opacity-40"}`}>
                         {badge.icon}
                       </div>
                       <div>
-                        <CardTitle className="text-lg text-foreground dark:text-white">{badge.name}</CardTitle>
+                        <CardTitle className="text-lg">{badge.name}</CardTitle>
                         <CardDescription>{badge.description}</CardDescription>
                       </div>
                     </div>
-                    <Icon className="h-5 w-5 text-gray-500" />
+                    <Icon className="h-5 w-5 text-slate-500" />
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  {/* Level badges */}
+                <CardContent className="space-y-4">
                   <div className="flex gap-2">
-                    {['bronze', 'silver', 'gold'].map((level) => {
-                      const isEarned = earnedLevel === level || 
-                        (earnedLevel === 'silver' && level === 'bronze') ||
-                        (earnedLevel === 'gold' && (level === 'bronze' || level === 'silver'))
-                      
-                      return (
-                        <div
-                          key={level}
-                          className={`flex-1 h-2 rounded-full ${
-                            isEarned
-                              ? `bg-gradient-to-r ${LEVEL_COLORS[level as keyof typeof LEVEL_COLORS]}`
-                              : 'bg-slate-200 dark:bg-slate-700'
-                          }`}
-                        />
-                      )
+                    {(["bronze", "silver", "gold"] as const).map(level => {
+                      const isEarned = earnedLevel === level
+                        || (earnedLevel === "silver" && level === "bronze")
+                        || (earnedLevel === "gold" && (level === "bronze" || level === "silver"))
+                      return <div key={level} className={`h-2 flex-1 rounded-full ${isEarned ? `bg-gradient-to-r ${LEVEL_COLORS[level]}` : "bg-white/10"}`} />
                     })}
                   </div>
-
-                  {/* Requirements */}
-                  <div className="space-y-1 text-xs">
+                  <div className="space-y-2 text-xs">
                     {earnedLevel ? (
                       <>
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Level Earned:</span>
-                          <Badge className={`${LEVEL_TEXT_COLORS[earnedLevel]} bg-transparent border-current`}>
+                          <span className="text-muted-foreground">Level earned</span>
+                          <Badge className={`${LEVEL_TEXT_COLORS[earnedLevel]} border-current bg-transparent`}>
                             {earnedLevel.toUpperCase()}
                           </Badge>
                         </div>
@@ -253,41 +194,17 @@ export default function AchievementsPage() {
                       </>
                     ) : (
                       <>
-                        <p className="text-muted-foreground font-semibold">Bronze Requirement:</p>
+                        <p className="font-semibold text-muted-foreground">Bronze requirement</p>
                         <p className="text-muted-foreground">{badge.levels.bronze.requirement}</p>
                       </>
                     )}
                   </div>
-
-                  {/* Next level progress */}
-                  {earnedLevel && earnedLevel !== 'gold' && (
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">Next: {earnedLevel === 'bronze' ? 'Silver' : 'Gold'}</span>
-                        <span className="text-muted-foreground">0%</span>
-                      </div>
-                      <Progress value={0} className="h-1" />
-                      <p className="text-xs text-muted-foreground">
-                        {badge.levels[earnedLevel === 'bronze' ? 'silver' : 'gold'].requirement}
-                      </p>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             </motion.div>
           )
         })}
       </div>
-
-      {filteredBadges.length === 0 && (
-        <Card className="border-0 shadow-lg bg-card dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800">
-          <CardContent className="p-12 text-center">
-            <Trophy className="h-16 w-16 mx-auto mb-4 text-gray-400 dark:text-gray-600" />
-            <h3 className="text-xl font-semibold text-foreground dark:text-white mb-2">No badges in this category yet</h3>
-            <p className="text-muted-foreground">Keep working hard to earn your first badge!</p>
-          </CardContent>
-        </Card>
-      )}
     </div>
   )
 }

@@ -23,6 +23,7 @@ const studentNavItems = [
   { href: "/dashboard/my-profile", icon: User, label: "My Profile" },
   { href: "/dashboard/academics", icon: GraduationCap, label: "My Academics" },
   { href: "/dashboard/notes", icon: BookMarked, label: "Study Notes" },
+  { href: "/dashboard/timetable", icon: CalendarDays, label: "Timetable" },
   { href: "/dashboard/study-planner", icon: CalendarDays, label: "AI Study Planner" },
   { href: "/dashboard/student-input", icon: Brain, label: "AI Predictions" },
   { href: "/dashboard/career-ai", icon: BriefcaseBusiness, label: "Career AI" },
@@ -38,6 +39,7 @@ const adminNavItems = [
   { href: "/admin/marks", icon: GraduationCap, label: "Manage Marks", section: "admin" },
   { href: "/admin/manage-attendance", icon: Calendar, label: "Manage Attendance", section: "admin" },
   { href: "/admin/notes", icon: BookMarked, label: "Notes Manager", section: "admin" },
+  { href: "/admin/timetable", icon: CalendarDays, label: "Timetable Manager", section: "admin" },
   { href: "/admin/class-analysis", icon: LineChart, label: "Class Analysis", section: "admin" },
   { href: "/admin/reports", icon: FileText, label: "Admin Reports", section: "admin" },
   // Student Section (for admin to view their own data)

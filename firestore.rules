@@ -270,6 +270,17 @@ service cloud.firestore {
       // Only admins can delete notes
       allow delete: if isAdmin();
     }
+
+    // ============================================
+    // TIMETABLES COLLECTION
+    // ============================================
+    match /timetables/{timetableId} {
+      // Students and staff can view published timetables
+      allow read: if isAuthenticated();
+
+      // Only admins can create or manage timetables
+      allow create, update, delete: if isAdmin();
+    }
   }
 }
 
