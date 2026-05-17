@@ -13,6 +13,7 @@ import { Eye, EyeOff, Mail, Lock, AlertCircle, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn, signInWithGoogle } from "@/lib/auth"
+import { getUserDocument } from "@/lib/firestore"
 import { toast } from "sonner"
 
 const containerVariants = {
@@ -65,7 +66,8 @@ export function LoginForm() {
       toast.error("Login failed")
     } else if (user) {
       toast.success("Login successful!")
-      router.push("/dashboard")
+      const userData = await getUserDocument(user.uid)
+      router.push(userData?.role === "admin" ? "/admin" : "/dashboard")
     }
   }
 
@@ -80,7 +82,8 @@ export function LoginForm() {
       toast.error("Google sign-in failed")
     } else if (user) {
       toast.success("Login successful!")
-      router.push("/dashboard")
+      const userData = await getUserDocument(user.uid)
+      router.push(userData?.role === "admin" ? "/admin" : "/dashboard")
     }
   }
 

@@ -97,12 +97,7 @@ export default function DashboardPage() {
   const photoURL = userData?.photoURL || ""
   const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase() || "S"
 
-  const areasOfInterest = studentProfile?.areasOfInterest || {
-    sport: 75,
-    reading: 85,
-    hiTech: 60,
-    musicArt: 70
-  }
+  const areasOfInterest = studentProfile?.areasOfInterest || {}
 
   const traits = studentProfile?.traits || {
     conscientiousness: 75,
@@ -127,28 +122,28 @@ export default function DashboardPage() {
       initial="hidden"
       animate="visible"
     >
-      <motion.section variants={itemVariants} className="relative overflow-hidden rounded-3xl border border-cyan-400/15 bg-slate-950 p-6 shadow-2xl shadow-cyan-950/25">
-        <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl" />
-        <div className="absolute -bottom-20 left-24 h-48 w-48 rounded-full bg-fuchsia-500/10 blur-3xl" />
+      <motion.section variants={itemVariants} className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-sm">
+        <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -bottom-20 left-24 h-48 w-48 rounded-full bg-primary/5 blur-3xl" />
         <div className="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <Badge className="mb-3 border-cyan-300/20 bg-cyan-300/10 text-cyan-100 hover:bg-cyan-300/10">Student command center</Badge>
-            <h1 className="bg-gradient-to-r from-white via-cyan-100 to-fuchsia-200 bg-clip-text text-3xl font-black text-transparent sm:text-4xl">
+            <Badge className="mb-3 border-primary/20 bg-primary/10 text-primary hover:bg-primary/10">Student dashboard</Badge>
+            <h1 className="text-3xl font-black text-foreground sm:text-4xl">
               Welcome back, {displayName.split(" ")[0]}
             </h1>
-            <p className="mt-2 max-w-2xl text-sm text-slate-300">
-              Your academic signal, growth patterns, and next useful moves — gathered into one calm surface.
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              Your academic overview, progress, and next useful actions in one organized place.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="grid grid-cols-1 gap-3 text-center min-[420px]:grid-cols-3">
             {[
               ["Friends", friends.length],
               ["Interests", Object.keys(areasOfInterest).length],
               ["Focus", `${traits.conscientiousness}%`],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
-                <p className="text-2xl font-bold text-white">{value}</p>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-slate-400">{label}</p>
+              <div key={label} className="rounded-2xl border border-border bg-muted/40 px-4 py-3">
+                <p className="text-2xl font-bold text-foreground">{value}</p>
+                <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">{label}</p>
               </div>
             ))}
           </div>
@@ -158,9 +153,9 @@ export default function DashboardPage() {
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Left Column - Student Profile Card */}
         <motion.div variants={itemVariants} className="lg:col-span-1">
-          <Card className="overflow-hidden border-white/10 bg-slate-950/70 shadow-xl shadow-cyan-950/10 backdrop-blur">
+          <Card className="overflow-hidden border-border bg-card shadow-sm">
             {/* Profile Header */}
-            <div className="bg-gradient-to-r from-cyan-400/20 via-primary/20 to-fuchsia-400/20 p-6 text-foreground">
+            <div className="border-b border-border bg-primary/10 p-6 text-foreground">
               <h2 className="text-2xl font-bold tracking-tight">{displayName}</h2>
               <p className="text-sm opacity-80 mt-1">{school}</p>
             </div>
@@ -208,27 +203,26 @@ export default function DashboardPage() {
                   Areas of Interest
                 </h3>
                 <div className="space-y-4">
-                  {[
-                    { label: "Sport", value: areasOfInterest.sport },
-                    { label: "Reading", value: areasOfInterest.reading },
-                    { label: "Hi-tech", value: areasOfInterest.hiTech },
-                    { label: "Music/Art", value: areasOfInterest.musicArt },
-                  ].map((item) => (
-                    <div key={item.label} className="space-y-1.5">
-                      <div className="flex justify-between text-xs px-0.5">
-                        <span className="font-medium text-foreground">{item.label}</span>
-                        <span className="font-semibold text-muted-foreground">{item.value}%</span>
+                  {Object.keys(areasOfInterest).length === 0 ? (
+                    <p className="text-xs text-muted-foreground">No areas of interest set. Edit your profile to add some!</p>
+                  ) : (
+                    Object.entries(areasOfInterest).map(([label, value]) => (
+                      <div key={label} className="space-y-1.5">
+                        <div className="flex justify-between text-xs px-0.5">
+                          <span className="font-medium text-foreground capitalize">{label}</span>
+                          <span className="font-semibold text-muted-foreground">{value}%</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-primary rounded-full"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${value}%` }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                          />
+                        </div>
                       </div>
-                      <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-primary rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${item.value}%` }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -239,7 +233,7 @@ export default function DashboardPage() {
         <div className="lg:col-span-1 space-y-6">
           {/* Growth Mindset Assessment */}
           <motion.div variants={itemVariants}>
-            <Card className="h-full border-white/10 bg-slate-950/70 shadow-xl shadow-cyan-950/10 backdrop-blur">
+            <Card className="h-full border-border bg-card shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <CardTitle className="text-xl font-bold">Growth Mindset</CardTitle>
                 <Link href="/dashboard/traits" className="text-primary text-xs font-semibold hover:underline">
@@ -288,10 +282,10 @@ export default function DashboardPage() {
 
           {/* Social Network */}
           <motion.div variants={itemVariants}>
-            <Card className="border-white/10 bg-slate-950/70 shadow-xl shadow-cyan-950/10 backdrop-blur">
+            <Card className="border-border bg-card shadow-sm">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl font-bold">Collaborators</CardTitle>
+                  <CardTitle className="text-xl font-bold">Friends</CardTitle>
                   <Link href="/dashboard/social-contacts" className="text-primary text-xs font-semibold hover:underline">
                     Manage Network
                   </Link>
@@ -326,7 +320,7 @@ export default function DashboardPage() {
             </h3>
 
             {/* Academic Growth */}
-            <Card className="border-white/10 border-l-4 border-l-cyan-300 bg-slate-950/70 shadow-xl shadow-cyan-950/10 backdrop-blur transition-all hover:-translate-y-1">
+            <Card className="border-border border-l-4 border-l-primary bg-card shadow-sm transition-all hover:-translate-y-1">
               <CardContent className="p-4 flex items-start gap-4">
                 <div className="p-2.5 rounded-lg bg-primary/10">
                   <Brain className="h-5 w-5 text-primary" />
@@ -339,10 +333,10 @@ export default function DashboardPage() {
             </Card>
 
             {/* Performance Insight */}
-            <Card className="border-white/10 border-l-4 border-l-fuchsia-300 bg-slate-950/70 shadow-xl shadow-fuchsia-950/10 backdrop-blur transition-all hover:-translate-y-1">
+            <Card className="border-border border-l-4 border-l-primary bg-card shadow-sm transition-all hover:-translate-y-1">
               <CardContent className="p-4 flex items-start gap-4">
-                <div className="p-2.5 rounded-lg bg-secondary/10">
-                  <LineChart className="h-5 w-5 text-secondary" />
+                <div className="p-2.5 rounded-lg bg-primary/10">
+                  <LineChart className="h-5 w-5 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground">Efficiency Insight</h4>
@@ -354,7 +348,7 @@ export default function DashboardPage() {
             {/* Recent Achievements Section */}
             <div className="space-y-3 pt-2">
               <h3 className="font-bold text-sm text-muted-foreground uppercase tracking-wider">Recent Milestone</h3>
-              <Card className="overflow-hidden border-white/10 bg-slate-950/70 shadow-xl shadow-cyan-950/10 backdrop-blur">
+              <Card className="overflow-hidden border-border bg-card shadow-sm">
                 <div className="h-1 w-full bg-primary/20" />
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
@@ -384,7 +378,7 @@ export default function DashboardPage() {
       {/* Charts Section */}
       <div className="grid gap-6 lg:grid-cols-2">
         <motion.div variants={itemVariants}>
-          <Card className="border-white/10 bg-slate-950/70 shadow-xl shadow-cyan-950/10 backdrop-blur">
+          <Card className="border-border bg-card shadow-sm">
             <CardHeader>
               <CardTitle>Attendance Participation</CardTitle>
             </CardHeader>
@@ -394,7 +388,7 @@ export default function DashboardPage() {
           </Card>
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Card className="border-white/10 bg-slate-950/70 shadow-xl shadow-fuchsia-950/10 backdrop-blur">
+          <Card className="border-border bg-card shadow-sm">
             <CardHeader>
               <CardTitle>Academic Growth Trends</CardTitle>
             </CardHeader>

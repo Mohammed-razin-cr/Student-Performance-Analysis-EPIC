@@ -102,7 +102,7 @@ export default function MyAcademicsPage() {
       </motion.div>
 
       {/* Overview Cards */}
-      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 xl:grid-cols-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -229,7 +229,7 @@ export default function MyAcademicsPage() {
                           {/* IA Components */}
                           <div>
                             <p className="text-xs font-medium text-muted-foreground mb-2">Internal Assessment (IA) - 30 marks</p>
-                            <div className="grid grid-cols-4 gap-2 text-sm">
+                            <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
                               <div className="bg-blue-50 dark:bg-blue-950/30 p-2 rounded text-center">
                                 <p className="text-xs text-muted-foreground">Attend</p>
                                 <p className="font-medium">{subject.attendance?.obtained || 0}/10</p>
@@ -250,7 +250,7 @@ export default function MyAcademicsPage() {
                           </div>
                           
                           {/* Semester & Totals */}
-                          <div className="grid grid-cols-3 gap-2 text-sm">
+                          <div className="grid grid-cols-1 gap-2 text-sm min-[420px]:grid-cols-3">
                             <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded text-center">
                               <p className="text-xs text-muted-foreground">IA</p>
                               <p className="font-bold">{subject.iaTotal || 0}/30</p>
@@ -438,7 +438,7 @@ export default function MyAcademicsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+              <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 xl:grid-cols-4">
                 <div className="text-center">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-3">
                     <span className="text-xl sm:text-2xl font-bold text-white">

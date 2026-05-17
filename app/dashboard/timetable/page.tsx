@@ -24,6 +24,7 @@ export default function StudentTimetablePage() {
   const { userData } = useUserData()
   const [timetables, setTimetables] = useState<Timetable[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedDay, setSelectedDay] = useState<(typeof TIMETABLE_DAYS)[number]>("Monday")
 
   useEffect(() => {
     const load = async () => {
@@ -57,6 +58,8 @@ export default function StudentTimetablePage() {
   const sessionsByDay = Object.fromEntries(
     TIMETABLE_DAYS.map(day => [day, sessions.filter(session => session.day === day)])
   ) as Record<string, TimetableSession[]>
+  const selectedDayIndex = TIMETABLE_DAYS.indexOf(selectedDay)
+  const selectedDaySessions = sessionsByDay[selectedDay]
 
   const timeSlots = [...new Map(
     sessions.map(session => [slotKey(session), { key: slotKey(session), startTime: session.startTime, endTime: session.endTime }])
@@ -161,6 +164,78 @@ export default function StudentTimetablePage() {
         </CardContent>
       </Card>
       </motion.div>
+
+      <motion.section
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.12 }}
+        className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 backdrop-blur"
+      >
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm text-muted-foreground">Browse by day</p>
+            <h2 className="text-xl font-bold">{selectedDay}</h2>
+          </div>
+          <Badge variant="outline" className="w-fit border-white/10 bg-white/5">
+            {selectedDaySessions.length} slots
+          </Badge>
+        </div>
+
+        <div className="relative mb-5 rounded-full bg-white/5 p-1">
+          <motion.div
+            className="absolute bottom-1 top-1 rounded-full bg-gradient-to-r from-cyan-300 to-fuchsia-300"
+            animate={{
+              left: `${(selectedDayIndex / TIMETABLE_DAYS.length) * 100}%`,
+              width: `${100 / TIMETABLE_DAYS.length}%`,
+            }}
+            transition={{ type: "spring", stiffness: 280, damping: 28 }}
+          />
+          <div className="relative grid grid-cols-3 gap-1 sm:grid-cols-6">
+            {TIMETABLE_DAYS.map(day => (
+              <button
+                key={day}
+                onClick={() => setSelectedDay(day)}
+                className={`rounded-full px-3 py-2 text-sm font-medium transition ${
+                  selectedDay === day ? "text-slate-950" : "text-slate-300 hover:text-white"
+                }`}
+              >
+                {day.slice(0, 3)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <motion.div
+          key={selectedDay}
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.25 }}
+          className="grid gap-3 md:grid-cols-2 xl:grid-cols-3"
+        >
+          {selectedDaySessions.length === 0 ? (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center text-sm text-muted-foreground md:col-span-2 xl:col-span-3">
+              No classes scheduled
+            </div>
+          ) : selectedDaySessions.map((session, index) => (
+            <div key={`${session.day}-${session.startTime}-${index}`} className={`rounded-2xl border p-4 ${
+              session.isLab ? "border-fuchsia-400/25 bg-fuchsia-400/10" : "border-cyan-400/20 bg-cyan-400/[0.07]"
+            }`}>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-semibold">{session.subjectName}</p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">{session.subjectCode}</p>
+                </div>
+                {session.isLab && <Sparkles className="h-4 w-4 text-fuchsia-300" />}
+              </div>
+              <div className="mt-4 flex items-center gap-2 text-sm text-slate-300">
+                <Clock3 className="h-4 w-4 text-cyan-300" />
+                {formatTime(session.startTime)} - {formatTime(session.endTime)}
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">{session.faculty}</p>
+            </div>
+          ))}
+        </motion.div>
+      </motion.section>
 
       <div className="space-y-4 lg:hidden">
         {TIMETABLE_DAYS.map((day, index) => (

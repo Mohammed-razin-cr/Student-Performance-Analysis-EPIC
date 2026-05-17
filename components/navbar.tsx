@@ -50,7 +50,7 @@ export function Navbar() {
 
   return (
     <motion.nav
-      className={`${styles.navbar} fixed top-3 left-1/2 z-50 -translate-x-1/2 w-[92vw] max-w-4xl rounded-xl flex items-center justify-between px-4 sm:px-5 py-2.5 transition-all duration-300 glass-navbar`}
+      className={`${styles.navbar} fixed top-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100vw-1rem)] max-w-4xl rounded-xl flex items-center justify-between px-3 sm:w-[92vw] sm:px-5 py-2.5 transition-all duration-300 glass-navbar`}
       variants={navVariants}
       initial="hidden"
       animate="visible"

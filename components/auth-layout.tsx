@@ -17,18 +17,18 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Header */}
-      <header className="fixed left-0 right-0 top-0 z-50 p-6">
+      <header className="fixed left-0 right-0 top-0 z-50 p-4 sm:p-6">
         <div className="container mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            className="group flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-primary sm:gap-2 sm:text-sm"
           >
             <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Home
           </Link>
           <Link
             href="/"
-            className="text-2xl font-black tracking-tighter bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"
+            className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-xl font-black tracking-tighter text-transparent sm:text-2xl"
           >
             EPIC
           </Link>

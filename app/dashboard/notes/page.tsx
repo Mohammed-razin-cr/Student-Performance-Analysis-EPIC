@@ -182,7 +182,7 @@ export default function StudentNotesPage() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {[
           { label: "Available Notes", value: notes.length, icon: BookOpen, color: "text-primary", bg: "bg-primary/10" },
           { label: "Subjects", value: [...new Set(notes.map(n => n.subject))].length, icon: GraduationCap, color: "text-blue-500", bg: "bg-blue-500/10" },

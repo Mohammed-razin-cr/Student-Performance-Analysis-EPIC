@@ -129,7 +129,7 @@ export function AIChatAssistant({ initialOpen = false }: AIChatAssistantProps) {
       ]
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-4 pointer-events-none">
+    <div className="pointer-events-none fixed inset-x-3 bottom-3 z-[100] flex flex-col items-end gap-3 sm:inset-x-auto sm:bottom-6 sm:right-6 sm:gap-4">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -139,8 +139,8 @@ export function AIChatAssistant({ initialOpen = false }: AIChatAssistantProps) {
             className={cn(
               "pointer-events-auto flex flex-col shadow-2xl transition-all duration-300",
               isExpanded 
-                ? "w-[90vw] h-[80vh] md:w-[600px] md:h-[700px]" 
-                : "w-[85vw] h-[60vh] md:w-[400px] md:h-[550px]"
+                ? "h-[80vh] w-full sm:w-[90vw] md:w-[600px] md:h-[700px]" 
+                : "h-[65vh] w-full sm:w-[85vw] md:w-[400px] md:h-[550px]"
             )}
           >
             <Card className="flex flex-col h-full border-primary/20 bg-card/95 backdrop-blur-xl overflow-hidden shadow-2xl shadow-primary/20 ring-1 ring-primary/30">
@@ -303,7 +303,7 @@ export function AIChatAssistant({ initialOpen = false }: AIChatAssistantProps) {
       </AnimatePresence>
 
       <motion.button
-        className="pointer-events-auto h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-2xl flex items-center justify-center relative group overflow-hidden"
+        className="pointer-events-auto relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-primary text-primary-foreground shadow-2xl sm:h-14 sm:w-14"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}

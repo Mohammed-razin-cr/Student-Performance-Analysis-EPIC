@@ -59,7 +59,7 @@ export default function AnalyticsPage() {
 
       {/* Summary Cards */}
       {!isLoading && (
-        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+        <motion.div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
           <Card className="border-border bg-card shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <div className="space-y-1">

@@ -19,7 +19,7 @@ import { Separator } from "@/components/ui/separator"
 import { 
   User, Camera, Loader2, Save, X, Plus, Edit3, 
   GraduationCap, Building, Mail, Phone, Calendar,
-  Heart, Sparkles, BookOpen, Music, Dumbbell, Code, Trophy, Award
+  Heart, Sparkles, BookOpen, Music, Dumbbell, Code, Trophy, Award, Zap
 } from "lucide-react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
@@ -29,8 +29,9 @@ import { updateUserDocument } from "@/lib/firestore"
 import { useAuth } from "@/contexts/AuthContext"
 import { uploadToCloudinary } from "@/lib/cloudinary"
 import { calculateUserBadges } from "@/lib/badges"
-import { getStudentMarks, getStudentProfile, getFriendsList } from "@/lib/firestore"
+import { getStudentMarks, getStudentProfile, getFriendsList, updateStudentProfile, createStudentProfile } from "@/lib/firestore"
 import type { Badge as BadgeType } from "@/types/badges"
+import type { AreasOfInterest } from "@/types/firestore"
 import Link from "next/link"
 
 const interestIcons: Record<string, React.ReactNode> = {
@@ -64,6 +65,10 @@ export default function MyProfilePage() {
   const [newSkill, setNewSkill] = useState("")
   const [newInterest, setNewInterest] = useState("")
   const [badges, setBadges] = useState<BadgeType[]>([])
+  // Areas of Interest (stored in studentProfiles)
+  const [areasOfInterest, setAreasOfInterest] = useState<AreasOfInterest>({})
+  const [newAreaName, setNewAreaName] = useState("")
+  const [newAreaValue, setNewAreaValue] = useState(70)
   
   const [profile, setProfile] = useState({
     name: "",
@@ -100,21 +105,25 @@ export default function MyProfilePage() {
   }, [userData])
 
   useEffect(() => {
-    const fetchBadges = async () => {
+    const fetchExtras = async () => {
       if (!user) return
       try {
-        const [marks, profile, friends] = await Promise.all([
+        const [marks, studentProfile, friends] = await Promise.all([
           getStudentMarks(user.uid),
           getStudentProfile(user.uid),
           getFriendsList(user.uid),
         ])
-        const earnedBadges = await calculateUserBadges(user.uid, marks, friends, profile)
+        const earnedBadges = await calculateUserBadges(user.uid, marks, friends, studentProfile)
         setBadges(earnedBadges)
+        // Load areas of interest
+        if (studentProfile?.areasOfInterest) {
+          setAreasOfInterest(studentProfile.areasOfInterest)
+        }
       } catch (err) {
-        console.error("Error fetching badges:", err)
+        console.error("Error fetching extras:", err)
       }
     }
-    fetchBadges()
+    fetchExtras()
   }, [user])
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,10 +176,31 @@ export default function MyProfilePage() {
     }))
   }
 
+  const addAreaOfInterest = () => {
+    const key = newAreaName.trim()
+    if (!key || key in areasOfInterest) return
+    setAreasOfInterest(prev => ({ ...prev, [key]: newAreaValue }))
+    setNewAreaName("")
+    setNewAreaValue(70)
+  }
+
+  const updateAreaValue = (key: string, value: number) => {
+    setAreasOfInterest(prev => ({ ...prev, [key]: value }))
+  }
+
+  const removeAreaOfInterest = (key: string) => {
+    setAreasOfInterest(prev => {
+      const updated = { ...prev }
+      delete updated[key]
+      return updated
+    })
+  }
+
   const handleSave = async () => {
     if (!user) return
     setIsSaving(true)
     try {
+      // Save basic profile info to users collection
       await updateUserDocument(user.uid, {
         name: profile.name,
         department: profile.department,
@@ -183,11 +213,24 @@ export default function MyProfilePage() {
         interests: profile.interests,
         bio: profile.bio,
       } as any)
+
+      // Save areas of interest to studentProfiles collection
+      const existingProfile = await getStudentProfile(user.uid)
+      if (existingProfile) {
+        await updateStudentProfile(user.uid, { areasOfInterest })
+      } else {
+        await createStudentProfile(user.uid, {
+          areasOfInterest,
+          traits: { conscientiousness: 75, openness: 60, agreeableness: 80 },
+          recommendations: [],
+          medicalHistory: [],
+          socialContacts: [],
+        })
+      }
+
       setIsEditing(false)
       toast.success("Profile updated successfully!")
-      // Refresh user data to update sidebar
       refresh()
-      // Force page reload to update all components showing user data
       window.location.reload()
     } catch (err) {
       console.error(err)
@@ -627,6 +670,129 @@ export default function MyProfilePage() {
                       ))}
                   </div>
                 </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Areas of Interest */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="h-5 w-5 text-primary" />
+                Areas of Interest
+              </CardTitle>
+              {!isEditing && Object.keys(areasOfInterest).length === 0 && (
+                <p className="text-xs text-muted-foreground mt-1">No areas of interest added yet. Click Edit Profile to add some!</p>
+              )}
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Existing entries */}
+              <AnimatePresence>
+                {Object.entries(areasOfInterest).map(([key, value]) => (
+                  <motion.div
+                    key={key}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-1.5"
+                  >
+                    <div className="flex justify-between items-center text-sm px-0.5">
+                      <span className="font-medium text-foreground capitalize">{key}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-muted-foreground w-10 text-right">{value}%</span>
+                        {isEditing && (
+                          <button
+                            onClick={() => removeAreaOfInterest(key)}
+                            className="text-muted-foreground hover:text-destructive transition-colors"
+                            title={`Remove ${key}`}
+                            aria-label={`Remove ${key}`}
+                          >
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    {isEditing ? (
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={value}
+                        onChange={(e) => updateAreaValue(key, parseInt(e.target.value))}
+                        className="w-full accent-primary h-1.5 rounded-full cursor-pointer"
+                        aria-label={`${key} interest level`}
+                      />
+                    ) : (
+                      <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-primary rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${value}%` }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                        />
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+
+              {/* Add new area (only in edit mode) */}
+              {isEditing && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="pt-2 space-y-3 border-t border-border"
+                >
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Add New Interest</p>
+                  <div className="flex gap-2">
+                    <Input
+                      value={newAreaName}
+                      onChange={(e) => setNewAreaName(e.target.value)}
+                      placeholder="e.g. Photography, Gaming..."
+                      onKeyDown={(e) => e.key === "Enter" && addAreaOfInterest()}
+                      className="flex-1"
+                    />
+                    <Button onClick={addAreaOfInterest} size="icon" disabled={!newAreaName.trim()}>
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>Interest Level</span>
+                      <span className="font-bold text-primary">{newAreaValue}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      value={newAreaValue}
+                      onChange={(e) => setNewAreaValue(parseInt(e.target.value))}
+                      className="w-full accent-primary h-1.5 rounded-full cursor-pointer"
+                      aria-label="New interest level"
+                    />
+                  </div>
+                  {/* Quick suggestions */}
+                  <div className="flex flex-wrap gap-2">
+                    {["Sports", "Reading", "Music", "Coding", "Art", "Gaming", "Photography", "Fitness"]
+                      .filter(s => !(s in areasOfInterest))
+                      .slice(0, 5)
+                      .map(suggestion => (
+                        <Badge
+                          key={suggestion}
+                          variant="outline"
+                          className="cursor-pointer hover:bg-primary/10 transition-colors"
+                          onClick={() => {
+                            if (!(suggestion in areasOfInterest)) {
+                              setAreasOfInterest(prev => ({ ...prev, [suggestion]: newAreaValue }))
+                            }
+                          }}
+                        >
+                          <Plus className="h-3 w-3 mr-1" />
+                          {suggestion}
+                        </Badge>
+                      ))}
+                  </div>
+                </motion.div>
               )}
             </CardContent>
           </Card>

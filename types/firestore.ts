@@ -79,10 +79,11 @@ export interface Timetable {
 // ============================================
 
 export interface AreasOfInterest {
-  sport: number;        // 0-100
-  reading: number;      // 0-100
-  hiTech: number;       // 0-100
-  musicArt: number;     // 0-100
+  sport?: number;        // 0-100
+  reading?: number;      // 0-100
+  hiTech?: number;       // 0-100
+  musicArt?: number;     // 0-100
+  [key: string]: number | undefined;
 }
 
 export interface PersonalityTraits {

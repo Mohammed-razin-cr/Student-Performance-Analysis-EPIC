@@ -97,19 +97,62 @@ export const createStudentProfile = async (userId: string, profileData: Omit<Cre
 };
 
 export const getStudentProfile = async (userId: string): Promise<StudentProfile | null> => {
+  // First try the standard pattern: document ID == userId
   const profileRef = doc(db, 'studentProfiles', userId);
   const profileSnap = await getDoc(profileRef);
   
   if (profileSnap.exists()) {
     return profileSnap.data() as StudentProfile;
   }
+  
+  // Fallback: query by userId field (handles older docs with auto-generated IDs)
+  const q = query(
+    collection(db, 'studentProfiles'),
+    where('userId', '==', userId),
+    limit(1)
+  );
+  const querySnap = await getDocs(q);
+  if (!querySnap.empty) {
+    return querySnap.docs[0].data() as StudentProfile;
+  }
+  
   return null;
 };
 
 export const updateStudentProfile = async (userId: string, updates: Partial<Omit<StudentProfile, 'userId' | 'createdAt' | 'updatedAt'>>): Promise<void> => {
+  // Try the standard document ID first
   const profileRef = doc(db, 'studentProfiles', userId);
-  await updateDoc(profileRef, {
+  const profileSnap = await getDoc(profileRef);
+
+  if (profileSnap.exists()) {
+    await updateDoc(profileRef, {
+      ...updates,
+      updatedAt: Timestamp.now(),
+    });
+    return;
+  }
+
+  // Fallback: find the doc by userId field (auto-generated ID docs)
+  const q = query(
+    collection(db, 'studentProfiles'),
+    where('userId', '==', userId),
+    limit(1)
+  );
+  const querySnap = await getDocs(q);
+  if (!querySnap.empty) {
+    const existingDocRef = querySnap.docs[0].ref;
+    await updateDoc(existingDocRef, {
+      ...updates,
+      updatedAt: Timestamp.now(),
+    });
+    return;
+  }
+
+  // No document found — create one at the correct location
+  await setDoc(profileRef, {
+    userId,
     ...updates,
+    createdAt: Timestamp.now(),
     updatedAt: Timestamp.now(),
   });
 };

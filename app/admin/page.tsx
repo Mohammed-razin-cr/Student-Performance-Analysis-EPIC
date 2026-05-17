@@ -257,7 +257,7 @@ EPIC - East Point Intelligence Center
   }
 
   return (
-    <div className="min-h-screen p-6 space-y-6">
+    <div className="min-h-screen space-y-6 p-4 sm:p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -277,11 +277,11 @@ EPIC - East Point Intelligence Center
       </motion.div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 xl:grid-cols-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <Card>
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm text-muted-foreground">Total Students</p>
                   <p className="text-3xl font-bold">{totalStudents}</p>
@@ -297,7 +297,7 @@ EPIC - East Point Intelligence Center
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
           <Card>
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm text-muted-foreground">With Marks</p>
                   <p className="text-3xl font-bold">{studentsWithMarks}</p>
@@ -313,7 +313,7 @@ EPIC - East Point Intelligence Center
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
           <Card>
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm text-muted-foreground">Avg Performance</p>
                   <p className="text-3xl font-bold">{averagePercentage.toFixed(1)}%</p>
@@ -329,7 +329,7 @@ EPIC - East Point Intelligence Center
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
           <Card>
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm text-muted-foreground">Top Rank</p>
                   <p className="text-3xl font-bold">
@@ -348,16 +348,16 @@ EPIC - East Point Intelligence Center
       {/* Search & Actions */}
       <Card>
         <CardHeader className="pb-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle>Student Records</CardTitle>
-            <div className="flex gap-3">
-              <div className="relative">
+            <div className="flex w-full gap-3 sm:w-auto">
+              <div className="relative w-full sm:w-auto">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search students..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 w-64"
+                  className="w-full pl-10 sm:w-64"
                 />
               </div>
             </div>
@@ -454,7 +454,7 @@ EPIC - East Point Intelligence Center
                                   placeholder="e.g., Mathematics"
                                 />
                               </div>
-                              <div className="grid grid-cols-2 gap-4">
+                              <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2">
                                 <div className="space-y-2">
                                   <Label>Marks Obtained</Label>
                                   <Input
